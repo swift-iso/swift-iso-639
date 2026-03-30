@@ -3,7 +3,7 @@
 //
 // Three-letter language code (ISO 639-2/3)
 
-import ASCII
+import ASCII_Primitives
 import Standard_Library_Extensions
 
 extension ISO_639 {

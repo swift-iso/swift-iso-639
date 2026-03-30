@@ -13,7 +13,7 @@ extension String { var tests: Self { self + " Tests" } }
 extension Target.Dependency {
     static var iso639: Self { .target(name: .iso639) }
     static var standards: Self { .product(name: "Standard Library Extensions", package: "swift-standard-library-extensions") }
-    static var incits_4_1986: Self { .product(name: "ASCII", package: "swift-ascii") }
+    static var incits_4_1986: Self { .product(name: "ASCII Primitives", package: "swift-ascii-primitives") }
     static var standardsTestSupport: Self { .product(name: "Test Primitives", package: "swift-test-primitives") }
 }
 
@@ -30,7 +30,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../../swift-primitives/swift-standard-library-extensions"),
-        .package(path: "../../swift-foundations/swift-ascii")
+        .package(path: "../../swift-primitives/swift-ascii-primitives")
     ],
     targets: [
         .target(

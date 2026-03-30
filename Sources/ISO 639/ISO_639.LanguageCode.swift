@@ -3,7 +3,7 @@
 //
 // Language code representation
 
-import ASCII
+import ASCII_Primitives
 import Standard_Library_Extensions
 
 extension ISO_639 {
