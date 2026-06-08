@@ -39,7 +39,7 @@ func generateLanguageCodesFile() throws {
     let scriptURL = URL(fileURLWithPath: #filePath)
     let scriptsDir = scriptURL.deletingLastPathComponent()
     let projectDir = scriptsDir.deletingLastPathComponent()
-    let resourcesDir = projectDir.appendingPathComponent("Sources/ISO 639/Resources")
+    let resourcesDir = projectDir.appendingPathComponent("Sources/ISO 639/Data")
     let generatedDir = projectDir.appendingPathComponent("Sources/ISO 639/Generated")
 
     // Create Generated directory if it doesn't exist

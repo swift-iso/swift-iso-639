@@ -38,7 +38,7 @@ let package = Package(
                 .incits_4_1986
             ],
             resources: [
-                .copy("Resources")
+                .copy("Data")
             ]
         ),
         .testTarget(
