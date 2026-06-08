@@ -25,7 +25,7 @@ Add this package to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-standards/swift-iso-639", from: "0.1.0")
+    .package(url: "https://github.com/swift-iso/swift-iso-639", from: "0.1.0")
 ]
 ```
 
@@ -302,7 +302,7 @@ The package uses ISO 639-2/B (bibliographic) codes where applicable.
 ## Related Packages
 
 - [swift-standards](https://github.com/swift-standards/swift-standards) - Foundation types
-- [swift-iso-3166](https://github.com/swift-standards/swift-iso-3166) - Country codes (planned)
+- [swift-iso-3166](https://github.com/swift-iso/swift-iso-3166) - Country codes (planned)
 - [swift-bcp-47](https://github.com/swift-standards/swift-bcp-47) - Language tags (planned)
 
 ## License
