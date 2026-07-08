@@ -76,7 +76,7 @@ extension ISO_639.LanguageCode {
         switch normalized.count {
         case 2:
             // Validate and create alpha2
-            do {
+            do throws(ISO_639.Alpha2.Error) {
                 let alpha2 = try ISO_639.Alpha2(normalized)
                 // Use authoritative conversion to get alpha3
                 let alpha3 = ISO_639.Alpha3(alpha2)
@@ -91,7 +91,7 @@ extension ISO_639.LanguageCode {
 
         case 3:
             // Validate and create alpha3
-            do {
+            do throws(ISO_639.Alpha3.Error) {
                 let alpha3 = try ISO_639.Alpha3(normalized)
                 // Use authoritative conversion to get alpha2 (if available)
                 let alpha2 = ISO_639.Alpha2(alpha3)
