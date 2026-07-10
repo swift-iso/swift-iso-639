@@ -38,9 +38,9 @@ let package = Package(
                 .standards,
                 .incits_4_1986
             ],
-            resources: [
-                .copy("Resources")
-    ]
+            exclude: [
+                "Resources"
+            ]
         ),
         .testTarget(
             name: "ISO 639 Tests",
