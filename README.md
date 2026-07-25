@@ -1,5 +1,7 @@
 # swift-iso-639
 
+![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
+
 **Type-safe ISO 639 language codes for Swift**
 
 ISO 639 defines standardized codes for representing languages:
