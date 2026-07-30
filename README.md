@@ -304,8 +304,8 @@ The package uses ISO 639-2/B (bibliographic) codes where applicable.
 ## Related Packages
 
 - [swift-standards](https://github.com/swift-standards/swift-standards) - Foundation types
-- [swift-iso-3166](https://github.com/swift-iso/swift-iso-3166) - Country codes (planned)
-- [swift-bcp-47](https://github.com/swift-standards/swift-bcp-47) - Language tags (planned)
+- [swift-iso-3166](https://github.com/swift-iso/swift-iso-3166) - Country codes
+- [swift-bcp-47](https://github.com/swift-ietf/swift-bcp-47) - Language tags
 
 ## License
 
