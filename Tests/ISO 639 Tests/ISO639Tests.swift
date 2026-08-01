@@ -10,6 +10,9 @@ import Testing
 
 @Suite
 struct `ISO 639 Language Codes` {
+    @Suite
+    struct Unit {
+
 
     // MARK: - Alpha2 Tests
 
@@ -23,36 +26,6 @@ struct `ISO 639 Language Codes` {
 
         let es = try ISO_639.Alpha2("Es")  // Test mixed case
         #expect(es.value == "es")
-    }
-
-    @Test
-    func `Alpha2: Invalid length`() {
-        #expect(throws: ISO_639.Alpha2.Error.invalidCodeLength(1)) {
-            try ISO_639.Alpha2("e")
-        }
-
-        #expect(throws: ISO_639.Alpha2.Error.invalidCodeLength(3)) {
-            try ISO_639.Alpha2("eng")
-        }
-
-        #expect(throws: ISO_639.Alpha2.Error.invalidCodeLength(0)) {
-            try ISO_639.Alpha2("")
-        }
-    }
-
-    @Test
-    func `Alpha2: Invalid characters`() {
-        #expect(throws: ISO_639.Alpha2.Error.invalidCharacters("e1")) {
-            try ISO_639.Alpha2("e1")
-        }
-
-        #expect(throws: ISO_639.Alpha2.Error.invalidCharacters("e-")) {
-            try ISO_639.Alpha2("e-")
-        }
-
-        #expect(throws: ISO_639.Alpha2.Error.invalidCharacters("e ")) {
-            try ISO_639.Alpha2("e ")
-        }
     }
 
     @Test
@@ -110,36 +83,6 @@ struct `ISO 639 Language Codes` {
 
         let spa = try ISO_639.Alpha3("Spa")  // Test mixed case
         #expect(spa.value == "spa")
-    }
-
-    @Test
-    func `Alpha3: Invalid length`() {
-        #expect(throws: ISO_639.Alpha3.Error.invalidCodeLength(2)) {
-            try ISO_639.Alpha3("en")
-        }
-
-        #expect(throws: ISO_639.Alpha3.Error.invalidCodeLength(4)) {
-            try ISO_639.Alpha3("engl")
-        }
-
-        #expect(throws: ISO_639.Alpha3.Error.invalidCodeLength(0)) {
-            try ISO_639.Alpha3("")
-        }
-    }
-
-    @Test
-    func `Alpha3: Invalid characters`() {
-        #expect(throws: ISO_639.Alpha3.Error.invalidCharacters("en1")) {
-            try ISO_639.Alpha3("en1")
-        }
-
-        #expect(throws: ISO_639.Alpha3.Error.invalidCharacters("en-")) {
-            try ISO_639.Alpha3("en-")
-        }
-
-        #expect(throws: ISO_639.Alpha3.Error.invalidCharacters("en ")) {
-            try ISO_639.Alpha3("en ")
-        }
     }
 
     @Test
@@ -299,6 +242,126 @@ struct `ISO 639 Language Codes` {
     }
 
     @Test
+    func `Conversion: Alpha2 to Alpha3 (total function)`() throws {
+        let en = try ISO_639.Alpha2("en")
+        let eng = ISO_639.Alpha3(en)
+        #expect(eng.value == "eng")
+
+        let zh = try ISO_639.Alpha2("zh")
+        let zho = ISO_639.Alpha3(zh)
+        #expect(zho.value == "zho")
+
+        let de = try ISO_639.Alpha2("de")
+        let deu = ISO_639.Alpha3(de)
+        #expect(deu.value == "deu")
+    }
+
+    @Test
+    func `Conversion: Alpha3 to Alpha2 (partial function - success)`() throws {
+        let eng = try ISO_639.Alpha3("eng")
+        let en = ISO_639.Alpha2(eng)
+        #expect(en != nil)
+        #expect(en?.value == "en")
+
+        let zho = try ISO_639.Alpha3("zho")
+        let zh = ISO_639.Alpha2(zho)
+        #expect(zh != nil)
+        #expect(zh?.value == "zh")
+    }
+
+    @Test
+    func `Conversion: Alpha3 to Alpha2 (partial function - nil)`() throws {
+        // Language family (no alpha2)
+        let cel = try ISO_639.Alpha3("cel")
+        let celAlpha2 = ISO_639.Alpha2(cel)
+        #expect(celAlpha2 == nil)
+
+        // Ancient language (no alpha2)
+        let grc = try ISO_639.Alpha3("grc")
+        let grcAlpha2 = ISO_639.Alpha2(grc)
+        #expect(grcAlpha2 == nil)
+
+        // Special code (no alpha2)
+        let mul = try ISO_639.Alpha3("mul")
+        let mulAlpha2 = ISO_639.Alpha2(mul)
+        #expect(mulAlpha2 == nil)
+    }
+
+    @Test
+    func `Conversion: Round-trip Alpha2 → Alpha3 → Alpha2`() throws {
+        let original = try ISO_639.Alpha2("fr")
+        let alpha3 = ISO_639.Alpha3(original)
+        let roundtrip = ISO_639.Alpha2(alpha3)
+
+        #expect(roundtrip != nil)
+        #expect(roundtrip?.value == original.value)
+    }
+
+    }
+
+    @Suite
+    struct `Edge Case` {
+    @Test
+    func `Alpha2: Invalid length`() {
+        #expect(throws: ISO_639.Alpha2.Error.invalidCodeLength(1)) {
+            try ISO_639.Alpha2("e")
+        }
+
+        #expect(throws: ISO_639.Alpha2.Error.invalidCodeLength(3)) {
+            try ISO_639.Alpha2("eng")
+        }
+
+        #expect(throws: ISO_639.Alpha2.Error.invalidCodeLength(0)) {
+            try ISO_639.Alpha2("")
+        }
+    }
+
+    @Test
+    func `Alpha2: Invalid characters`() {
+        #expect(throws: ISO_639.Alpha2.Error.invalidCharacters("e1")) {
+            try ISO_639.Alpha2("e1")
+        }
+
+        #expect(throws: ISO_639.Alpha2.Error.invalidCharacters("e-")) {
+            try ISO_639.Alpha2("e-")
+        }
+
+        #expect(throws: ISO_639.Alpha2.Error.invalidCharacters("e ")) {
+            try ISO_639.Alpha2("e ")
+        }
+    }
+
+    @Test
+    func `Alpha3: Invalid length`() {
+        #expect(throws: ISO_639.Alpha3.Error.invalidCodeLength(2)) {
+            try ISO_639.Alpha3("en")
+        }
+
+        #expect(throws: ISO_639.Alpha3.Error.invalidCodeLength(4)) {
+            try ISO_639.Alpha3("engl")
+        }
+
+        #expect(throws: ISO_639.Alpha3.Error.invalidCodeLength(0)) {
+            try ISO_639.Alpha3("")
+        }
+    }
+
+    @Test
+    func `Alpha3: Invalid characters`() {
+        #expect(throws: ISO_639.Alpha3.Error.invalidCharacters("en1")) {
+            try ISO_639.Alpha3("en1")
+        }
+
+        #expect(throws: ISO_639.Alpha3.Error.invalidCharacters("en-")) {
+            try ISO_639.Alpha3("en-")
+        }
+
+        #expect(throws: ISO_639.Alpha3.Error.invalidCharacters("en ")) {
+            try ISO_639.Alpha3("en ")
+        }
+    }
+
+    @Test
     func `LanguageCode: Invalid codes`() {
         #expect(throws: ISO_639.Error.invalidAlpha2Code("zz")) {
             try ISO_639.LanguageCode("zz")
@@ -319,6 +382,45 @@ struct `ISO 639 Language Codes` {
 
     // MARK: - Codable Tests
 
+    @Test
+    func `Edge: Empty string`() {
+        #expect(throws: ISO_639.Error.invalidCodeLength(0)) {
+            try ISO_639.LanguageCode("")
+        }
+    }
+
+    @Test
+    func `Edge: Whitespace`() {
+        #expect(throws: ISO_639.Error.invalidCharacters(" en")) {
+            try ISO_639.LanguageCode(" en")
+        }
+
+        #expect(throws: ISO_639.Error.invalidCharacters("en ")) {
+            try ISO_639.LanguageCode("en ")
+        }
+
+        #expect(throws: ISO_639.Error.invalidCodeLength(1)) {
+            try ISO_639.LanguageCode(" ")
+        }
+    }
+
+    @Test
+    func `Edge: Unicode characters`() {
+        #expect(throws: ISO_639.Error.invalidCharacters("ën")) {
+            try ISO_639.LanguageCode("ën")
+        }
+
+        #expect(throws: ISO_639.Error.invalidCharacters("日本")) {
+            try ISO_639.LanguageCode("日本")
+        }
+    }
+
+    // MARK: - Special Codes
+
+    }
+
+    @Suite
+    struct Integration {
     @Test
     func `Alpha2: Codable round-trip`() throws {
         let original = ISO_639.Alpha2.en
@@ -370,41 +472,6 @@ struct `ISO 639 Language Codes` {
     }
 
     // MARK: - Edge Cases
-
-    @Test
-    func `Edge: Empty string`() {
-        #expect(throws: ISO_639.Error.invalidCodeLength(0)) {
-            try ISO_639.LanguageCode("")
-        }
-    }
-
-    @Test
-    func `Edge: Whitespace`() {
-        #expect(throws: ISO_639.Error.invalidCharacters(" en")) {
-            try ISO_639.LanguageCode(" en")
-        }
-
-        #expect(throws: ISO_639.Error.invalidCharacters("en ")) {
-            try ISO_639.LanguageCode("en ")
-        }
-
-        #expect(throws: ISO_639.Error.invalidCodeLength(1)) {
-            try ISO_639.LanguageCode(" ")
-        }
-    }
-
-    @Test
-    func `Edge: Unicode characters`() {
-        #expect(throws: ISO_639.Error.invalidCharacters("ën")) {
-            try ISO_639.LanguageCode("ën")
-        }
-
-        #expect(throws: ISO_639.Error.invalidCharacters("日本")) {
-            try ISO_639.LanguageCode("日本")
-        }
-    }
-
-    // MARK: - Special Codes
 
     @Test
     func `Special codes: Multiple languages`() throws {
@@ -498,62 +565,6 @@ struct `ISO 639 Language Codes` {
     // MARK: - Authoritative Conversions
 
     @Test
-    func `Conversion: Alpha2 to Alpha3 (total function)`() throws {
-        let en = try ISO_639.Alpha2("en")
-        let eng = ISO_639.Alpha3(en)
-        #expect(eng.value == "eng")
-
-        let zh = try ISO_639.Alpha2("zh")
-        let zho = ISO_639.Alpha3(zh)
-        #expect(zho.value == "zho")
-
-        let de = try ISO_639.Alpha2("de")
-        let deu = ISO_639.Alpha3(de)
-        #expect(deu.value == "deu")
-    }
-
-    @Test
-    func `Conversion: Alpha3 to Alpha2 (partial function - success)`() throws {
-        let eng = try ISO_639.Alpha3("eng")
-        let en = ISO_639.Alpha2(eng)
-        #expect(en != nil)
-        #expect(en?.value == "en")
-
-        let zho = try ISO_639.Alpha3("zho")
-        let zh = ISO_639.Alpha2(zho)
-        #expect(zh != nil)
-        #expect(zh?.value == "zh")
-    }
-
-    @Test
-    func `Conversion: Alpha3 to Alpha2 (partial function - nil)`() throws {
-        // Language family (no alpha2)
-        let cel = try ISO_639.Alpha3("cel")
-        let celAlpha2 = ISO_639.Alpha2(cel)
-        #expect(celAlpha2 == nil)
-
-        // Ancient language (no alpha2)
-        let grc = try ISO_639.Alpha3("grc")
-        let grcAlpha2 = ISO_639.Alpha2(grc)
-        #expect(grcAlpha2 == nil)
-
-        // Special code (no alpha2)
-        let mul = try ISO_639.Alpha3("mul")
-        let mulAlpha2 = ISO_639.Alpha2(mul)
-        #expect(mulAlpha2 == nil)
-    }
-
-    @Test
-    func `Conversion: Round-trip Alpha2 → Alpha3 → Alpha2`() throws {
-        let original = try ISO_639.Alpha2("fr")
-        let alpha3 = ISO_639.Alpha3(original)
-        let roundtrip = ISO_639.Alpha2(alpha3)
-
-        #expect(roundtrip != nil)
-        #expect(roundtrip?.value == original.value)
-    }
-
-    @Test
     func `Conversion: Performance characteristics`() throws {
         // Verify O(1) performance by testing many conversions
         let codes = ["en", "zh", "es", "ar", "fr", "de", "ja", "ru", "pt", "it"]
@@ -604,5 +615,7 @@ struct `ISO 639 Language Codes` {
         #expect(code.alpha2 == nil)
         #expect(code.alpha3.value == "dra")
         #expect(code.description == "dra")  // Falls back to alpha3 when no alpha2
+    }
+
     }
 }
