@@ -2,8 +2,6 @@
 
 import PackageDescription
 
-
-
 extension String {
     static let iso639: Self = "ISO 639"
 }
@@ -12,7 +10,9 @@ extension String { var tests: Self { self + " Tests" } }
 
 extension Target.Dependency {
     static var iso639: Self { .target(name: .iso639) }
-    static var standards: Self { .product(name: "Standard Library Extensions", package: "swift-standard-library-extensions") }
+    static var standards: Self {
+        .product(name: "Standard Library Extensions", package: "swift-standard-library-extensions")
+    }
     static var incits_4_1986: Self { .product(name: "ASCII Primitives", package: "swift-ascii-primitives") }
 }
 
@@ -22,21 +22,21 @@ let package = Package(
         .macOS(.v26),
         .iOS(.v26),
         .tvOS(.v26),
-        .watchOS(.v26)
+        .watchOS(.v26),
     ],
     products: [
         .library(name: "ISO 639", targets: ["ISO 639"])
     ],
     dependencies: [
         .package(url: "https://github.com/swift-primitives/swift-standard-library-extensions.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-ascii-primitives.git", branch: "main")
+        .package(url: "https://github.com/swift-primitives/swift-ascii-primitives.git", branch: "main"),
     ],
     targets: [
         .target(
             name: "ISO 639",
             dependencies: [
                 .standards,
-                .incits_4_1986
+                .incits_4_1986,
             ],
             exclude: [
                 "Resources"
@@ -45,7 +45,7 @@ let package = Package(
         .testTarget(
             name: "ISO 639 Tests",
             dependencies: [
-                "ISO 639",
+                "ISO 639"
             ]
         ),
     ],
