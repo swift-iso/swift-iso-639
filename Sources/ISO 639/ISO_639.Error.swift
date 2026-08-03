@@ -21,4 +21,3 @@ extension ISO_639 {
         case invalidAlpha3Code(String)
     }
 }
-

@@ -1,5 +1,4 @@
 #!/usr/bin/env swift
-
 import Foundation
 
 // MARK: - Data Models
@@ -25,7 +24,7 @@ let swiftKeywords: Set<String> = [
     "for", "func", "guard", "if", "import", "in", "init", "inout", "internal",
     "is", "let", "nil", "operator", "private", "protocol", "public", "repeat",
     "return", "self", "Self", "static", "struct", "subscript", "super", "switch",
-    "throw", "throws", "true", "try", "typealias", "var", "where", "while"
+    "throw", "throws", "true", "try", "typealias", "var", "where", "while",
 ]
 
 /// Escapes a code if it's a Swift keyword
@@ -63,28 +62,28 @@ func generateLanguageCodesFile() throws {
 
     // Generate code
     var output = """
-    // ISO_639.LanguageCodes.swift
-    // ISO 639
-    //
-    // Language code data and mappings
-    //
-    // ⚠️ AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
-    // Generated from JSON data files using Scripts/generate-language-codes.swift
-    // To update: modify JSON files in Resources/ then run: swift Scripts/generate-language-codes.swift
+        // ISO_639.LanguageCodes.swift
+        // ISO 639
+        //
+        // Language code data and mappings
+        //
+        // ⚠️ AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
+        // Generated from JSON data files using Scripts/generate-language-codes.swift
+        // To update: modify JSON files in Resources/ then run: swift Scripts/generate-language-codes.swift
 
-    import Standards
+        import Standards
 
-    extension ISO_639 {
-        /// Mapping from ISO 639-1 (2-letter) to ISO 639-2/T (3-letter) codes
-        ///
-        /// Complete ISO 639-1 standard (\(mappings.count) codes) with their ISO 639-2/T equivalents.
-        /// Uses terminologic (T) codes, not bibliographic (B) codes.
-        ///
-        /// ## Data Source
-        /// Generated from authoritative Library of Congress ISO 639-2 data.
-        internal static let alpha2ToAlpha3: [Alpha2: Alpha3] = [
+        extension ISO_639 {
+            /// Mapping from ISO 639-1 (2-letter) to ISO 639-2/T (3-letter) codes
+            ///
+            /// Complete ISO 639-1 standard (\(mappings.count) codes) with their ISO 639-2/T equivalents.
+            /// Uses terminologic (T) codes, not bibliographic (B) codes.
+            ///
+            /// ## Data Source
+            /// Generated from authoritative Library of Congress ISO 639-2 data.
+            internal static let alpha2ToAlpha3: [Alpha2: Alpha3] = [
 
-    """
+        """
 
     // Add mappings with refined types
     for (index, mapping) in mappings.enumerated() {
@@ -93,37 +92,38 @@ func generateLanguageCodesFile() throws {
     }
 
     output += """
-        ]
+            ]
 
-        /// Mapping from ISO 639-2 (3-letter) to ISO 639-1 (2-letter) codes
-        internal static let alpha3ToAlpha2: [Alpha3: Alpha2] = {
-            Dictionary(uniqueKeysWithValues: alpha2ToAlpha3.map { ($1, $0) })
-        }()
-    }
+            /// Mapping from ISO 639-2 (3-letter) to ISO 639-1 (2-letter) codes
+            internal static let alpha3ToAlpha2: [Alpha3: Alpha2] = {
+                Dictionary(uniqueKeysWithValues: alpha2ToAlpha3.map { ($1, $0) })
+            }()
+        }
 
-    """
+        """
 
     // Write output
     try output.write(to: outputFile, atomically: true, encoding: .utf8)
 
     // Generate Alpha2 static accessors
     var alpha2Accessors = """
-    // ISO_639.Alpha2+StaticAccessors.swift
-    // ISO 639
-    //
-    // Static accessors for all ISO 639-1 (2-letter) codes
-    //
-    // ⚠️ AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
-    // Generated from JSON data files using Scripts/generate-language-codes.swift
-    // To update: modify JSON files in Resources/ then run: swift Scripts/generate-language-codes.swift
+        // ISO_639.Alpha2+StaticAccessors.swift
+        // ISO 639
+        //
+        // Static accessors for all ISO 639-1 (2-letter) codes
+        //
+        // ⚠️ AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
+        // Generated from JSON data files using Scripts/generate-language-codes.swift
+        // To update: modify JSON files in Resources/ then run: swift Scripts/generate-language-codes.swift
 
-    extension ISO_639.Alpha2 {
+        extension ISO_639.Alpha2 {
 
-    """
+        """
 
     for mapping in mappings {
         alpha2Accessors += "    /// \(mapping.name)\n"
-        alpha2Accessors += "    public static let \(escapeIfNeeded(mapping.alpha2)) = ISO_639.Alpha2(unchecked: \"\(mapping.alpha2)\")\n\n"
+        alpha2Accessors +=
+            "    public static let \(escapeIfNeeded(mapping.alpha2)) = ISO_639.Alpha2(unchecked: \"\(mapping.alpha2)\")\n\n"
     }
 
     alpha2Accessors += "}\n"
@@ -131,29 +131,31 @@ func generateLanguageCodesFile() throws {
 
     // Generate Alpha3 static accessors
     var alpha3Accessors = """
-    // ISO_639.Alpha3+StaticAccessors.swift
-    // ISO 639
-    //
-    // Static accessors for all ISO 639-2/3 (3-letter) codes
-    //
-    // ⚠️ AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
-    // Generated from JSON data files using Scripts/generate-language-codes.swift
-    // To update: modify JSON files in Resources/ then run: swift Scripts/generate-language-codes.swift
+        // ISO_639.Alpha3+StaticAccessors.swift
+        // ISO 639
+        //
+        // Static accessors for all ISO 639-2/3 (3-letter) codes
+        //
+        // ⚠️ AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
+        // Generated from JSON data files using Scripts/generate-language-codes.swift
+        // To update: modify JSON files in Resources/ then run: swift Scripts/generate-language-codes.swift
 
-    extension ISO_639.Alpha3 {
+        extension ISO_639.Alpha3 {
 
-    """
+        """
 
     // Generate from mappings (codes with alpha2 equivalents)
     for mapping in mappings {
         alpha3Accessors += "    /// \(mapping.name)\n"
-        alpha3Accessors += "    public static let \(escapeIfNeeded(mapping.alpha3)) = ISO_639.Alpha3(unchecked: \"\(mapping.alpha3)\")\n\n"
+        alpha3Accessors +=
+            "    public static let \(escapeIfNeeded(mapping.alpha3)) = ISO_639.Alpha3(unchecked: \"\(mapping.alpha3)\")\n\n"
     }
 
     // Generate from alpha3-only codes
     for code in alpha3Only {
         alpha3Accessors += "    /// \(code.name)\n"
-        alpha3Accessors += "    public static let \(escapeIfNeeded(code.alpha3)) = ISO_639.Alpha3(unchecked: \"\(code.alpha3)\")\n\n"
+        alpha3Accessors +=
+            "    public static let \(escapeIfNeeded(code.alpha3)) = ISO_639.Alpha3(unchecked: \"\(code.alpha3)\")\n\n"
     }
 
     alpha3Accessors += "}\n"
@@ -161,19 +163,19 @@ func generateLanguageCodesFile() throws {
 
     // Generate Alpha2 CaseIterable conformance
     var alpha2CaseIterable = """
-    // ISO_639.Alpha2+CaseIterable.swift
-    // ISO 639
-    //
-    // CaseIterable conformance for ISO 639-1 (2-letter) codes
-    //
-    // ⚠️ AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
-    // Generated from JSON data files using Scripts/generate-language-codes.swift
-    // To update: modify JSON files in Resources/ then run: swift Scripts/generate-language-codes.swift
+        // ISO_639.Alpha2+CaseIterable.swift
+        // ISO 639
+        //
+        // CaseIterable conformance for ISO 639-1 (2-letter) codes
+        //
+        // ⚠️ AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
+        // Generated from JSON data files using Scripts/generate-language-codes.swift
+        // To update: modify JSON files in Resources/ then run: swift Scripts/generate-language-codes.swift
 
-    extension ISO_639.Alpha2: CaseIterable {
-        public static let allCases: [ISO_639.Alpha2] = [
+        extension ISO_639.Alpha2: CaseIterable {
+            public static let allCases: [ISO_639.Alpha2] = [
 
-    """
+        """
 
     for (index, mapping) in mappings.enumerated() {
         let comma = index < mappings.count - 1 ? "," : ""
@@ -181,27 +183,27 @@ func generateLanguageCodesFile() throws {
     }
 
     alpha2CaseIterable += """
-        ]
-    }
+            ]
+        }
 
-    """
+        """
     try alpha2CaseIterable.write(to: alpha2CaseIterableFile, atomically: true, encoding: .utf8)
 
     // Generate Alpha3 CaseIterable conformance
     var alpha3CaseIterable = """
-    // ISO_639.Alpha3+CaseIterable.swift
-    // ISO 639
-    //
-    // CaseIterable conformance for ISO 639-2/3 (3-letter) codes
-    //
-    // ⚠️ AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
-    // Generated from JSON data files using Scripts/generate-language-codes.swift
-    // To update: modify JSON files in Resources/ then run: swift Scripts/generate-language-codes.swift
+        // ISO_639.Alpha3+CaseIterable.swift
+        // ISO 639
+        //
+        // CaseIterable conformance for ISO 639-2/3 (3-letter) codes
+        //
+        // ⚠️ AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
+        // Generated from JSON data files using Scripts/generate-language-codes.swift
+        // To update: modify JSON files in Resources/ then run: swift Scripts/generate-language-codes.swift
 
-    extension ISO_639.Alpha3: CaseIterable {
-        public static let allCases: [ISO_639.Alpha3] = [
+        extension ISO_639.Alpha3: CaseIterable {
+            public static let allCases: [ISO_639.Alpha3] = [
 
-    """
+        """
 
     let allAlpha3Codes = mappings.map { $0.alpha3 } + alpha3Only.map { $0.alpha3 }
     for (index, code) in allAlpha3Codes.sorted().enumerated() {
@@ -210,10 +212,10 @@ func generateLanguageCodesFile() throws {
     }
 
     alpha3CaseIterable += """
-        ]
-    }
+            ]
+        }
 
-    """
+        """
     try alpha3CaseIterable.write(to: alpha3CaseIterableFile, atomically: true, encoding: .utf8)
 
     print("✅ Generated ISO_639.LanguageCodes.swift")
