@@ -48,7 +48,8 @@ extension ISO_639 {
         .ch: .cha,  // Chamorro
         .ce: .che,  // Chechen
         .zh: .zho,  // Chinese
-        .cu: .chu,  // Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+        // Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+        .cu: .chu,
         .cv: .chv,  // Chuvash
         .kw: .cor,  // Cornish
         .co: .cos,  // Corsican
