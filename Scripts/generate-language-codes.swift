@@ -71,7 +71,7 @@ func generateLanguageCodesFile() throws {
         // Generated from JSON data files using Scripts/generate-language-codes.swift
         // To update: modify JSON files in Resources/ then run: swift Scripts/generate-language-codes.swift
 
-        import Standards
+        import Standard_Library_Extensions
 
         extension ISO_639 {
             /// Mapping from ISO 639-1 (2-letter) to ISO 639-2/T (3-letter) codes
@@ -86,9 +86,14 @@ func generateLanguageCodesFile() throws {
         """
 
     // Add mappings with refined types
-    for (index, mapping) in mappings.enumerated() {
-        let comma = index < mappings.count - 1 ? "," : ""
-        output += "        .\(escapeIfNeeded(mapping.alpha2)): .\(mapping.alpha3)\(comma)  // \(mapping.name)\n"
+    for mapping in mappings {
+        let entry = "        .\(escapeIfNeeded(mapping.alpha2)): .\(mapping.alpha3),"
+        let line = "\(entry)  // \(mapping.name)"
+        if line.count > 100 {
+            output += "        // \(mapping.name)\n\(entry)\n"
+        } else {
+            output += "\(line)\n"
+        }
     }
 
     output += """
@@ -177,9 +182,8 @@ func generateLanguageCodesFile() throws {
 
         """
 
-    for (index, mapping) in mappings.enumerated() {
-        let comma = index < mappings.count - 1 ? "," : ""
-        alpha2CaseIterable += "        .\(escapeIfNeeded(mapping.alpha2))\(comma)\n"
+    for mapping in mappings {
+        alpha2CaseIterable += "        .\(escapeIfNeeded(mapping.alpha2)),\n"
     }
 
     alpha2CaseIterable += """
@@ -206,9 +210,8 @@ func generateLanguageCodesFile() throws {
         """
 
     let allAlpha3Codes = mappings.map { $0.alpha3 } + alpha3Only.map { $0.alpha3 }
-    for (index, code) in allAlpha3Codes.sorted().enumerated() {
-        let comma = index < allAlpha3Codes.count - 1 ? "," : ""
-        alpha3CaseIterable += "        .\(code)\(comma)\n"
+    for code in allAlpha3Codes.sorted() {
+        alpha3CaseIterable += "        .\(code),\n"
     }
 
     alpha3CaseIterable += """
