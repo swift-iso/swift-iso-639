@@ -37,9 +37,6 @@ let package = Package(
             dependencies: [
                 .standards,
                 .incits_4_1986,
-            ],
-            exclude: [
-                "Resources"
             ]
         ),
         .testTarget(

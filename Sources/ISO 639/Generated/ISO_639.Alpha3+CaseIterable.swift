@@ -3,9 +3,8 @@
 //
 // CaseIterable conformance for ISO 639-2/3 (3-letter) codes
 //
-// ⚠️ AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
-// Generated from JSON data files using Scripts/generate-language-codes.swift
-// To update: modify JSON files in Resources/ then run: swift Scripts/generate-language-codes.swift
+// Canonical checked-in registry snapshot.
+// Review updates against the Library of Congress ISO 639-2 registry.
 
 extension ISO_639.Alpha3: CaseIterable {
     public static let allCases: [ISO_639.Alpha3] = [

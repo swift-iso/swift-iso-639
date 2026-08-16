@@ -170,6 +170,12 @@ The package includes ~70 major world languages:
 
 See `ISO_639.LanguageCodes.swift` for the complete list.
 
+### Registry provenance
+
+The checked-in Swift registry is the package's canonical data source. Registry updates are
+reviewed directly as Swift diffs against the Library of Congress ISO 639-2 registry; the package
+does not ship a parallel JSON corpus or repository-local generator.
+
 ## Design Philosophy
 
 This package follows refined type principles:

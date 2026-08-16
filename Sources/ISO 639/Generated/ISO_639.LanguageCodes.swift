@@ -3,9 +3,8 @@
 //
 // Language code data and mappings
 //
-// ⚠️ AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
-// Generated from JSON data files using Scripts/generate-language-codes.swift
-// To update: modify JSON files in Resources/ then run: swift Scripts/generate-language-codes.swift
+// Canonical checked-in registry snapshot.
+// Review updates against the Library of Congress ISO 639-2 registry.
 
 import Standard_Library_Extensions
 
