@@ -1,4 +1,4 @@
-// swift-tools-version: 6.3.3
+// swift-tools-version: 6.4
 
 import PackageDescription
 
@@ -13,30 +13,38 @@ extension Target.Dependency {
     static var standards: Self {
         .product(name: "Standard Library Extensions", package: "swift-standard-library-extensions")
     }
-    static var incits_4_1986: Self { .product(name: "ASCII Primitives", package: "swift-ascii-primitives") }
+    static var ascii: Self {
+        .product(name: "ASCII Primitives", package: "swift-ascii-primitives")
+    }
 }
 
 let package = Package(
     name: "swift-iso-639",
     platforms: [
-        .macOS("27"),
-        .iOS("27"),
-        .tvOS("27"),
-        .watchOS("27"),
+        .macOS(.v27),
+        .iOS(.v27),
+        .tvOS(.v27),
+        .watchOS(.v27),
     ],
     products: [
         .library(name: "ISO 639", targets: ["ISO 639"])
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-primitives/swift-standard-library-extensions.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-ascii-primitives.git", branch: "main"),
+        .package(
+            url: "https://github.com/swift-primitives/swift-standard-library-extensions.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-primitives/swift-ascii-primitives.git",
+            branch: "main"
+        ),
     ],
     targets: [
         .target(
             name: "ISO 639",
             dependencies: [
                 .standards,
-                .incits_4_1986,
+                .ascii,
             ]
         ),
         .testTarget(
