@@ -1,209 +1,194 @@
-// ISO_639.LanguageCodes.swift
-// ISO 639
-//
-// Language code data and mappings
-//
-// Canonical checked-in registry snapshot.
-// Review updates against the Library of Congress ISO 639-2 registry.
-
 import Standard_Library_Extensions
 
 extension ISO_639 {
-    /// Mapping from ISO 639-1 (2-letter) to ISO 639-2/T (3-letter) codes
-    ///
-    /// Complete ISO 639-1 standard (183 codes) with their ISO 639-2/T equivalents.
-    /// Uses terminologic (T) codes, not bibliographic (B) codes.
-    ///
-    /// ## Data Source
-    /// Generated from authoritative Library of Congress ISO 639-2 data.
+
     internal static let alpha2ToAlpha3: [Alpha2: Alpha3] = [
-        .aa: .aar,  // Afar
-        .ab: .abk,  // Abkhazian
-        .af: .afr,  // Afrikaans
-        .ak: .aka,  // Akan
-        .sq: .sqi,  // Albanian
-        .am: .amh,  // Amharic
-        .ar: .ara,  // Arabic
-        .an: .arg,  // Aragonese
-        .hy: .hye,  // Armenian
-        .`as`: .asm,  // Assamese
-        .av: .ava,  // Avaric
-        .ae: .ave,  // Avestan
-        .ay: .aym,  // Aymara
-        .az: .aze,  // Azerbaijani
-        .ba: .bak,  // Bashkir
-        .bm: .bam,  // Bambara
-        .eu: .eus,  // Basque
-        .be: .bel,  // Belarusian
-        .bn: .ben,  // Bengali
-        .bi: .bis,  // Bislama
-        .bo: .bod,  // Tibetan
-        .bs: .bos,  // Bosnian
-        .br: .bre,  // Breton
-        .bg: .bul,  // Bulgarian
-        .my: .mya,  // Burmese
-        .ca: .cat,  // Catalan; Valencian
-        .cs: .ces,  // Czech
-        .ch: .cha,  // Chamorro
-        .ce: .che,  // Chechen
-        .zh: .zho,  // Chinese
-        // Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+        .aa: .aar,
+        .ab: .abk,
+        .af: .afr,
+        .ak: .aka,
+        .sq: .sqi,
+        .am: .amh,
+        .ar: .ara,
+        .an: .arg,
+        .hy: .hye,
+        .`as`: .asm,
+        .av: .ava,
+        .ae: .ave,
+        .ay: .aym,
+        .az: .aze,
+        .ba: .bak,
+        .bm: .bam,
+        .eu: .eus,
+        .be: .bel,
+        .bn: .ben,
+        .bi: .bis,
+        .bo: .bod,
+        .bs: .bos,
+        .br: .bre,
+        .bg: .bul,
+        .my: .mya,
+        .ca: .cat,
+        .cs: .ces,
+        .ch: .cha,
+        .ce: .che,
+        .zh: .zho,
+
         .cu: .chu,
-        .cv: .chv,  // Chuvash
-        .kw: .cor,  // Cornish
-        .co: .cos,  // Corsican
-        .cr: .cre,  // Cree
-        .cy: .cym,  // Welsh
-        .da: .dan,  // Danish
-        .de: .deu,  // German
-        .dv: .div,  // Divehi; Dhivehi; Maldivian
-        .nl: .nld,  // Dutch; Flemish
-        .dz: .dzo,  // Dzongkha
-        .el: .ell,  // Modern Greek (1453-)
-        .en: .eng,  // English
-        .eo: .epo,  // Esperanto
-        .et: .est,  // Estonian
-        .ee: .ewe,  // Ewe
-        .fo: .fao,  // Faroese
-        .fa: .fas,  // Persian
-        .fj: .fij,  // Fijian
-        .fi: .fin,  // Finnish
-        .fr: .fra,  // French
-        .fy: .fry,  // Western Frisian
-        .ff: .ful,  // Fulah
-        .gd: .gla,  // Gaelic; Scottish Gaelic
-        .ga: .gle,  // Irish
-        .gl: .glg,  // Galician
-        .gv: .glv,  // Manx
-        .gn: .grn,  // Guarani
-        .gu: .guj,  // Gujarati
-        .ht: .hat,  // Haitian; Haitian Creole
-        .ha: .hau,  // Hausa
-        .he: .heb,  // Hebrew
-        .hz: .her,  // Herero
-        .hi: .hin,  // Hindi
-        .ho: .hmo,  // Hiri Motu
-        .hr: .hrv,  // Croatian
-        .hu: .hun,  // Hungarian
-        .ig: .ibo,  // Igbo
-        .`is`: .isl,  // Icelandic
-        .io: .ido,  // Ido
-        .ii: .iii,  // Sichuan Yi; Nuosu
-        .iu: .iku,  // Inuktitut
-        .ie: .ile,  // Interlingue; Occidental
-        .ia: .ina,  // Interlingua (International Auxiliary Language Association)
-        .id: .ind,  // Indonesian
-        .ik: .ipk,  // Inupiaq
-        .it: .ita,  // Italian
-        .jv: .jav,  // Javanese
-        .ja: .jpn,  // Japanese
-        .kl: .kal,  // Kalaallisut; Greenlandic
-        .kn: .kan,  // Kannada
-        .ks: .kas,  // Kashmiri
-        .kr: .kau,  // Kanuri
-        .ka: .kat,  // Georgian
-        .kk: .kaz,  // Kazakh
-        .km: .khm,  // Central Khmer
-        .ki: .kik,  // Kikuyu; Gikuyu
-        .rw: .kin,  // Kinyarwanda
-        .ky: .kir,  // Kirghiz; Kyrgyz
-        .kv: .kom,  // Komi
-        .kg: .kon,  // Kongo
-        .ko: .kor,  // Korean
-        .kj: .kua,  // Kuanyama; Kwanyama
-        .ku: .kur,  // Kurdish
-        .lo: .lao,  // Lao
-        .la: .lat,  // Latin
-        .lv: .lav,  // Latvian
-        .li: .lim,  // Limburgan; Limburger; Limburgish
-        .ln: .lin,  // Lingala
-        .lt: .lit,  // Lithuanian
-        .lb: .ltz,  // Luxembourgish; Letzeburgesch
-        .lu: .lub,  // Luba-Katanga
-        .lg: .lug,  // Ganda
-        .mk: .mkd,  // Macedonian
-        .mh: .mah,  // Marshallese
-        .ml: .mal,  // Malayalam
-        .mi: .mri,  // Maori
-        .mr: .mar,  // Marathi
-        .ms: .msa,  // Malay
-        .mg: .mlg,  // Malagasy
-        .mt: .mlt,  // Maltese
-        .mn: .mon,  // Mongolian
-        .na: .nau,  // Nauru
-        .nv: .nav,  // Navajo; Navaho
-        .nr: .nbl,  // South Ndebele
-        .nd: .nde,  // North Ndebele
-        .ng: .ndo,  // Ndonga
-        .ne: .nep,  // Nepali
-        .nn: .nno,  // Norwegian Nynorsk
-        .nb: .nob,  // Norwegian Bokmål
-        .no: .nor,  // Norwegian
-        .ny: .nya,  // Chichewa; Chewa; Nyanja
-        .oc: .oci,  // Occitan (post 1500)
-        .oj: .oji,  // Ojibwa
-        .or: .ori,  // Oriya
-        .om: .orm,  // Oromo
-        .os: .oss,  // Ossetian; Ossetic
-        .pa: .pan,  // Panjabi; Punjabi
-        .pi: .pli,  // Pali
-        .pl: .pol,  // Polish
-        .pt: .por,  // Portuguese
-        .ps: .pus,  // Pushto; Pashto
-        .qu: .que,  // Quechua
-        .rm: .roh,  // Romansh
-        .ro: .ron,  // Romanian; Moldavian; Moldovan
-        .rn: .run,  // Rundi
-        .ru: .rus,  // Russian
-        .sg: .sag,  // Sango
-        .sa: .san,  // Sanskrit
-        .si: .sin,  // Sinhala; Sinhalese
-        .sk: .slk,  // Slovak
-        .sl: .slv,  // Slovenian
-        .se: .sme,  // Northern Sami
-        .sm: .smo,  // Samoan
-        .sn: .sna,  // Shona
-        .sd: .snd,  // Sindhi
-        .so: .som,  // Somali
-        .st: .sot,  // Sotho, Southern
-        .es: .spa,  // Spanish; Castilian
-        .sc: .srd,  // Sardinian
-        .sr: .srp,  // Serbian
-        .ss: .ssw,  // Swati
-        .su: .sun,  // Sundanese
-        .sw: .swa,  // Swahili
-        .sv: .swe,  // Swedish
-        .ty: .tah,  // Tahitian
-        .ta: .tam,  // Tamil
-        .tt: .tat,  // Tatar
-        .te: .tel,  // Telugu
-        .tg: .tgk,  // Tajik
-        .tl: .tgl,  // Tagalog
-        .th: .tha,  // Thai
-        .ti: .tir,  // Tigrinya
-        .to: .ton,  // Tonga (Tonga Islands)
-        .tn: .tsn,  // Tswana
-        .ts: .tso,  // Tsonga
-        .tk: .tuk,  // Turkmen
-        .tr: .tur,  // Turkish
-        .tw: .twi,  // Twi
-        .ug: .uig,  // Uighur; Uyghur
-        .uk: .ukr,  // Ukrainian
-        .ur: .urd,  // Urdu
-        .uz: .uzb,  // Uzbek
-        .ve: .ven,  // Venda
-        .vi: .vie,  // Vietnamese
-        .vo: .vol,  // Volapük
-        .wa: .wln,  // Walloon
-        .wo: .wol,  // Wolof
-        .xh: .xho,  // Xhosa
-        .yi: .yid,  // Yiddish
-        .yo: .yor,  // Yoruba
-        .za: .zha,  // Zhuang; Chuang
-        .zu: .zul,  // Zulu
+        .cv: .chv,
+        .kw: .cor,
+        .co: .cos,
+        .cr: .cre,
+        .cy: .cym,
+        .da: .dan,
+        .de: .deu,
+        .dv: .div,
+        .nl: .nld,
+        .dz: .dzo,
+        .el: .ell,
+        .en: .eng,
+        .eo: .epo,
+        .et: .est,
+        .ee: .ewe,
+        .fo: .fao,
+        .fa: .fas,
+        .fj: .fij,
+        .fi: .fin,
+        .fr: .fra,
+        .fy: .fry,
+        .ff: .ful,
+        .gd: .gla,
+        .ga: .gle,
+        .gl: .glg,
+        .gv: .glv,
+        .gn: .grn,
+        .gu: .guj,
+        .ht: .hat,
+        .ha: .hau,
+        .he: .heb,
+        .hz: .her,
+        .hi: .hin,
+        .ho: .hmo,
+        .hr: .hrv,
+        .hu: .hun,
+        .ig: .ibo,
+        .`is`: .isl,
+        .io: .ido,
+        .ii: .iii,
+        .iu: .iku,
+        .ie: .ile,
+        .ia: .ina,
+        .id: .ind,
+        .ik: .ipk,
+        .it: .ita,
+        .jv: .jav,
+        .ja: .jpn,
+        .kl: .kal,
+        .kn: .kan,
+        .ks: .kas,
+        .kr: .kau,
+        .ka: .kat,
+        .kk: .kaz,
+        .km: .khm,
+        .ki: .kik,
+        .rw: .kin,
+        .ky: .kir,
+        .kv: .kom,
+        .kg: .kon,
+        .ko: .kor,
+        .kj: .kua,
+        .ku: .kur,
+        .lo: .lao,
+        .la: .lat,
+        .lv: .lav,
+        .li: .lim,
+        .ln: .lin,
+        .lt: .lit,
+        .lb: .ltz,
+        .lu: .lub,
+        .lg: .lug,
+        .mk: .mkd,
+        .mh: .mah,
+        .ml: .mal,
+        .mi: .mri,
+        .mr: .mar,
+        .ms: .msa,
+        .mg: .mlg,
+        .mt: .mlt,
+        .mn: .mon,
+        .na: .nau,
+        .nv: .nav,
+        .nr: .nbl,
+        .nd: .nde,
+        .ng: .ndo,
+        .ne: .nep,
+        .nn: .nno,
+        .nb: .nob,
+        .no: .nor,
+        .ny: .nya,
+        .oc: .oci,
+        .oj: .oji,
+        .or: .ori,
+        .om: .orm,
+        .os: .oss,
+        .pa: .pan,
+        .pi: .pli,
+        .pl: .pol,
+        .pt: .por,
+        .ps: .pus,
+        .qu: .que,
+        .rm: .roh,
+        .ro: .ron,
+        .rn: .run,
+        .ru: .rus,
+        .sg: .sag,
+        .sa: .san,
+        .si: .sin,
+        .sk: .slk,
+        .sl: .slv,
+        .se: .sme,
+        .sm: .smo,
+        .sn: .sna,
+        .sd: .snd,
+        .so: .som,
+        .st: .sot,
+        .es: .spa,
+        .sc: .srd,
+        .sr: .srp,
+        .ss: .ssw,
+        .su: .sun,
+        .sw: .swa,
+        .sv: .swe,
+        .ty: .tah,
+        .ta: .tam,
+        .tt: .tat,
+        .te: .tel,
+        .tg: .tgk,
+        .tl: .tgl,
+        .th: .tha,
+        .ti: .tir,
+        .to: .ton,
+        .tn: .tsn,
+        .ts: .tso,
+        .tk: .tuk,
+        .tr: .tur,
+        .tw: .twi,
+        .ug: .uig,
+        .uk: .ukr,
+        .ur: .urd,
+        .uz: .uzb,
+        .ve: .ven,
+        .vi: .vie,
+        .vo: .vol,
+        .wa: .wln,
+        .wo: .wol,
+        .xh: .xho,
+        .yi: .yid,
+        .yo: .yor,
+        .za: .zha,
+        .zu: .zul,
     ]
 
-    /// Mapping from ISO 639-2 (3-letter) to ISO 639-1 (2-letter) codes
     internal static let alpha3ToAlpha2: [Alpha3: Alpha2] = {
         Dictionary(uniqueKeysWithValues: alpha2ToAlpha3.map { ($1, $0) })
     }()

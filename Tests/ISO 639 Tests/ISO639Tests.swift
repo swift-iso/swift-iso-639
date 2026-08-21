@@ -1,8 +1,3 @@
-// ISO639Tests.swift
-// ISO 639 Tests
-//
-// Comprehensive tests for ISO 639 language codes
-
 import Foundation
 import Testing
 
@@ -13,17 +8,15 @@ struct `ISO 639 Language Codes` {
     @Suite
     struct Unit {
 
-        // MARK: - Alpha2 Tests
-
         @Test
         func `Alpha2: Valid 2-letter codes`() throws {
             let en = try ISO_639.Alpha2("en")
             #expect(en.value == "en")
 
-            let zh = try ISO_639.Alpha2("ZH")  // Test case normalization
+            let zh = try ISO_639.Alpha2("ZH")
             #expect(zh.value == "zh")
 
-            let es = try ISO_639.Alpha2("Es")  // Test mixed case
+            let es = try ISO_639.Alpha2("Es")
             #expect(es.value == "es")
         }
 
@@ -70,17 +63,15 @@ struct `ISO 639 Language Codes` {
             #expect(en1.hashValue == en2.hashValue)
         }
 
-        // MARK: - Alpha3 Tests
-
         @Test
         func `Alpha3: Valid 3-letter codes`() throws {
             let eng = try ISO_639.Alpha3("eng")
             #expect(eng.value == "eng")
 
-            let zho = try ISO_639.Alpha3("ZHO")  // Test case normalization
+            let zho = try ISO_639.Alpha3("ZHO")
             #expect(zho.value == "zho")
 
-            let spa = try ISO_639.Alpha3("Spa")  // Test mixed case
+            let spa = try ISO_639.Alpha3("Spa")
             #expect(spa.value == "spa")
         }
 
@@ -127,8 +118,6 @@ struct `ISO 639 Language Codes` {
             #expect(eng1.hashValue == eng2.hashValue)
         }
 
-        // MARK: - LanguageCode Tests
-
         @Test
         func `LanguageCode: Initialize from 2-letter code`() throws {
             let en = try ISO_639.LanguageCode("en")
@@ -157,7 +146,7 @@ struct `ISO 639 Language Codes` {
 
         @Test
         func `LanguageCode: Bidirectional conversion consistency`() throws {
-            // Test that creating from alpha2 and alpha3 yields same result
+
             let en2 = try ISO_639.LanguageCode("en")
             let en3 = try ISO_639.LanguageCode("eng")
 
@@ -171,16 +160,16 @@ struct `ISO 639 Language Codes` {
         @Test
         func `LanguageCode: All major languages`() throws {
             let testCases: [(String, String, String)] = [
-                ("en", "en", "eng"),  // English
-                ("zh", "zh", "zho"),  // Chinese
-                ("es", "es", "spa"),  // Spanish
-                ("ar", "ar", "ara"),  // Arabic
-                ("fr", "fr", "fra"),  // French
-                ("de", "de", "deu"),  // German
-                ("ja", "ja", "jpn"),  // Japanese
-                ("ru", "ru", "rus"),  // Russian
-                ("pt", "pt", "por"),  // Portuguese
-                ("it", "it", "ita"),  // Italian
+                ("en", "en", "eng"),
+                ("zh", "zh", "zho"),
+                ("es", "es", "spa"),
+                ("ar", "ar", "ara"),
+                ("fr", "fr", "fra"),
+                ("de", "de", "deu"),
+                ("ja", "ja", "jpn"),
+                ("ru", "ru", "rus"),
+                ("pt", "pt", "por"),
+                ("it", "it", "ita"),
             ]
 
             for (input, expectedAlpha2, expectedAlpha3) in testCases {
@@ -193,16 +182,16 @@ struct `ISO 639 Language Codes` {
         @Test
         func `LanguageCode: Indian languages`() throws {
             let testCases: [(String, String, String)] = [
-                ("hi", "hi", "hin"),  // Hindi
-                ("bn", "bn", "ben"),  // Bengali
-                ("pa", "pa", "pan"),  // Punjabi
-                ("te", "te", "tel"),  // Telugu
-                ("mr", "mr", "mar"),  // Marathi
-                ("ta", "ta", "tam"),  // Tamil
-                ("ur", "ur", "urd"),  // Urdu
-                ("gu", "gu", "guj"),  // Gujarati
-                ("kn", "kn", "kan"),  // Kannada
-                ("ml", "ml", "mal"),  // Malayalam
+                ("hi", "hi", "hin"),
+                ("bn", "bn", "ben"),
+                ("pa", "pa", "pan"),
+                ("te", "te", "tel"),
+                ("mr", "mr", "mar"),
+                ("ta", "ta", "tam"),
+                ("ur", "ur", "urd"),
+                ("gu", "gu", "guj"),
+                ("kn", "kn", "kan"),
+                ("ml", "ml", "mal"),
             ]
 
             for (input, expectedAlpha2, expectedAlpha3) in testCases {
@@ -270,17 +259,15 @@ struct `ISO 639 Language Codes` {
 
         @Test
         func `Conversion: Alpha3 to Alpha2 (partial function - nil)`() throws {
-            // Language family (no alpha2)
+
             let cel = try ISO_639.Alpha3("cel")
             let celAlpha2 = ISO_639.Alpha2(cel)
             #expect(celAlpha2 == nil)
 
-            // Ancient language (no alpha2)
             let grc = try ISO_639.Alpha3("grc")
             let grcAlpha2 = ISO_639.Alpha2(grc)
             #expect(grcAlpha2 == nil)
 
-            // Special code (no alpha2)
             let mul = try ISO_639.Alpha3("mul")
             let mulAlpha2 = ISO_639.Alpha2(mul)
             #expect(mulAlpha2 == nil)
@@ -379,8 +366,6 @@ struct `ISO 639 Language Codes` {
             }
         }
 
-        // MARK: - Codable Tests
-
         @Test
         func `Edge: Empty string`() {
             #expect(throws: ISO_639.Error.invalidCodeLength(0)) {
@@ -413,8 +398,6 @@ struct `ISO 639 Language Codes` {
                 try ISO_639.LanguageCode("日本")
             }
         }
-
-        // MARK: - Special Codes
 
     }
 
@@ -470,8 +453,6 @@ struct `ISO 639 Language Codes` {
             }
         }
 
-        // MARK: - Edge Cases
-
         @Test
         func `Special codes: Multiple languages`() throws {
             let mul = try ISO_639.Alpha3("mul")
@@ -495,8 +476,6 @@ struct `ISO 639 Language Codes` {
             let zxx = try ISO_639.Alpha3("zxx")
             #expect(zxx.value == "zxx")
         }
-
-        // MARK: - Additional ISO 639-1 Codes
 
         @Test
         func `ISO 639-1: Constructed languages`() throws {
@@ -545,27 +524,23 @@ struct `ISO 639 Language Codes` {
 
         @Test
         func `ISO 639-1: Norwegian variants`() throws {
-            // Norwegian macrolanguage
+
             let norwegian = try ISO_639.LanguageCode("no")
             #expect(norwegian.alpha2?.value == "no")
             #expect(norwegian.alpha3.value == "nor")
 
-            // Norwegian Bokmål
             let bokmal = try ISO_639.LanguageCode("nb")
             #expect(bokmal.alpha2?.value == "nb")
             #expect(bokmal.alpha3.value == "nob")
 
-            // Norwegian Nynorsk
             let nynorsk = try ISO_639.LanguageCode("nn")
             #expect(nynorsk.alpha2?.value == "nn")
             #expect(nynorsk.alpha3.value == "nno")
         }
 
-        // MARK: - Authoritative Conversions
-
         @Test
         func `Conversion: Performance characteristics`() throws {
-            // Verify O(1) performance by testing many conversions
+
             let codes = ["en", "zh", "es", "ar", "fr", "de", "ja", "ru", "pt", "it"]
 
             for codeStr in codes {
@@ -576,8 +551,6 @@ struct `ISO 639 Language Codes` {
                 #expect(backToAlpha2?.value == codeStr)
             }
         }
-
-        // MARK: - ISO 639-2 Codes Without Alpha2
 
         @Test
         func `ISO 639-2 only: Language families`() throws {
@@ -605,15 +578,14 @@ struct `ISO 639 Language Codes` {
 
         @Test
         func `ISO 639-2 only: No alpha2 equivalent`() throws {
-            // These codes have no ISO 639-1 equivalent
+
             let dravidian = try ISO_639.Alpha3("dra")
             #expect(dravidian.value == "dra")
 
-            // LanguageCode with alpha3-only code
             let code = ISO_639.LanguageCode(alpha3: dravidian)
             #expect(code.alpha2 == nil)
             #expect(code.alpha3.value == "dra")
-            #expect(code.description == "dra")  // Falls back to alpha3 when no alpha2
+            #expect(code.description == "dra")
         }
 
     }

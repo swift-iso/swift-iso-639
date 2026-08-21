@@ -1,11 +1,3 @@
-// ISO_639.Alpha3+CaseIterable.swift
-// ISO 639
-//
-// CaseIterable conformance for ISO 639-2/3 (3-letter) codes
-//
-// Canonical checked-in registry snapshot.
-// Review updates against the Library of Congress ISO 639-2 registry.
-
 extension ISO_639.Alpha3: CaseIterable {
     public static let allCases: [ISO_639.Alpha3] = [
         .aar,
