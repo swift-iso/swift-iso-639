@@ -245,6 +245,14 @@ struct `ISO 639 Language Codes` {
         }
 
         @Test
+        func `Conversion: every Alpha2 has an Alpha3`() {
+            for alpha2 in ISO_639.Alpha2.allCases {
+                let alpha3 = ISO_639.Alpha3(alpha2)
+                #expect(ISO_639.Alpha2(alpha3) == alpha2)
+            }
+        }
+
+        @Test
         func `Conversion: Alpha3 to Alpha2 (partial function - success)`() throws {
             let eng = try ISO_639.Alpha3("eng")
             let en = ISO_639.Alpha2(eng)

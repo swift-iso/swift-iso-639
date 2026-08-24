@@ -59,7 +59,9 @@ extension ISO_639.Alpha3 {
 
     public init(_ alpha2: ISO_639.Alpha2) {
 
-        let alpha3 = ISO_639.alpha2ToAlpha3[alpha2]!
+        guard let alpha3 = ISO_639.alpha2ToAlpha3[alpha2] else {
+            preconditionFailure("ISO 639 Alpha-2 mapping is incomplete")
+        }
         self = alpha3
     }
 }
