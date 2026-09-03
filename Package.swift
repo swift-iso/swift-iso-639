@@ -2,12 +2,6 @@
 
 import PackageDescription
 
-extension String {
-    static let iso639: Self = "ISO 639"
-}
-
-extension String { var tests: Self { self + " Tests" } }
-
 let package = Package(
     name: "swift-iso-639",
     platforms: [
@@ -43,7 +37,7 @@ let package = Package(
         .testTarget(
             name: "ISO 639 Tests",
             dependencies: [
-                "ISO 639"
+                .target(name: "ISO 639")
             ]
         ),
     ],
