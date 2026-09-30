@@ -8,6 +8,10 @@ extension ISO_639 {
         public let value: String
 
         public init(_ value: some StringProtocol) throws(Error) {
+            guard value.allSatisfy(\.isASCII) else {
+                throw Alpha2.Error.invalidCharacters(String(value))
+            }
+
             let normalized = value.lowercased()
 
             guard normalized.count == 2 else {

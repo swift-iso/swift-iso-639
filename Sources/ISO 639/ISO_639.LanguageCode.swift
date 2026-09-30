@@ -24,6 +24,10 @@ extension ISO_639 {
 extension ISO_639.LanguageCode {
 
     public init(_ code: some StringProtocol) throws(ISO_639.Error) {
+        guard code.allSatisfy(\.isASCII) else {
+            throw ISO_639.Error.invalidCharacters(String(code))
+        }
+
         let normalized = code.lowercased()
 
         switch normalized.count {
