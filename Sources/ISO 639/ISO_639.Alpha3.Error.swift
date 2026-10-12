@@ -1,5 +1,5 @@
 extension ISO_639.Alpha3 {
-    public enum Error: Swift.Error, Sendable, Equatable {
+    public enum Error: Swift::Error, Sendable, Equatable {
 
         case invalidCodeLength(Int)
 
