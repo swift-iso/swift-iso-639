@@ -219,7 +219,7 @@ extension `ISO639 Tests` {
                 let alpha3 = try ISO_639.Alpha3("eng")
                 let code = ISO_639.LanguageCode(alpha3: alpha3)
 
-                #expect(code.alpha2 == nil)
+                #expect(code.alpha2 == .en)
                 #expect(code.alpha3.value == "eng")
             }
 
@@ -228,8 +228,8 @@ extension `ISO639 Tests` {
                 let withAlpha2 = try ISO_639.LanguageCode("en")
                 #expect(withAlpha2.description == "en")
 
-                let alpha3Only = ISO_639.LanguageCode(alpha3: .eng)
-                #expect(alpha3Only.description == "eng")
+                let alpha3Only = ISO_639.LanguageCode(alpha3: .ace)
+                #expect(alpha3Only.description == "ace")
             }
 
             @Test

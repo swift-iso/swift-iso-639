@@ -15,7 +15,7 @@ extension ISO_639 {
         }
 
         public init(alpha3: Alpha3) {
-            self.alpha2 = nil
+            self.alpha2 = Alpha2(alpha3)
             self.alpha3 = alpha3
         }
     }
