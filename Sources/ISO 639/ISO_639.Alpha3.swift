@@ -22,6 +22,11 @@ extension ISO_639 {
                 throw Alpha3.Error.invalidCharacters(normalized)
             }
 
+            if let terminology = ISO_639.bibliographicToTerminology[normalized] {
+                self = terminology
+                return
+            }
+
             guard Self.validCodes.contains(normalized) else {
                 throw Alpha3.Error.invalidAlpha3Code(normalized)
             }

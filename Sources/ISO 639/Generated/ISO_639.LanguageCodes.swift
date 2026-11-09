@@ -192,4 +192,27 @@ extension ISO_639 {
     internal static let alpha3ToAlpha2: [Alpha3: Alpha2] = {
         Dictionary(uniqueKeysWithValues: alpha2ToAlpha3.map { ($1, $0) })
     }()
+
+    internal static let bibliographicToTerminology: [String: Alpha3] = [
+        "alb": .sqi,
+        "arm": .hye,
+        "baq": .eus,
+        "bur": .mya,
+        "chi": .zho,
+        "cze": .ces,
+        "dut": .nld,
+        "fre": .fra,
+        "geo": .kat,
+        "ger": .deu,
+        "gre": .ell,
+        "ice": .isl,
+        "mac": .mkd,
+        "mao": .mri,
+        "may": .msa,
+        "per": .fas,
+        "rum": .ron,
+        "slo": .slk,
+        "tib": .bod,
+        "wel": .cym,
+    ]
 }
