@@ -5,7 +5,7 @@ Use this package when you need to validate, store or convert language codes: ISO
 ## Laws
 
 - A code is valid only if it is in the package's tables: 183 two-letter codes and 486 three-letter codes. Any other code is refused.
-- Three-letter codes are the ISO 639-2 terminology codes, such as `deu`, `fra` and `zho`. The bibliographic codes ger, fre and chi are refused. The collective and special codes, such as `afa`, `mis`, `mul`, `und` and `zxx`, are valid, and the local-use range from qaa to qtz is not.
+- Three-letter codes are the ISO 639-2 terminology codes, such as `deu`, `fra` and `zho`. The bibliographic codes, such as `ger`, `fre` and `chi`, are accepted and stored as their terminology codes, so `ger` and `deu` give equal values. The collective and special codes, such as `afa`, `mis`, `mul`, `und` and `zxx`, are valid, and the local-use range from qaa to qtz is not.
 - Codes are case-insensitive on input and always stored in lowercase, so `KO` and `ko` give equal values.
 - Input must be ASCII. A character that only lowercases to an ASCII letter, such as the Kelvin sign, is refused.
 - Every two-letter code has a three-letter code, its terminology code, so `de` becomes `deu`. Most three-letter codes have no two-letter code, and converting one gives nil. Converting a two-letter code to three letters and back gives the same code.
