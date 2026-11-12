@@ -8,7 +8,7 @@ extension ISO_639 {
         public let value: String
 
         public init(_ value: some StringProtocol) throws(Error) {
-            guard value.allSatisfy(\.isASCII) else {
+            guard value.allSatisfy({ $0.isASCII }) else {
                 throw Alpha3.Error.invalidCharacters(String(value))
             }
 
@@ -51,18 +51,20 @@ extension ISO_639.Alpha3: CustomStringConvertible {
     public var description: String { value }
 }
 
-extension ISO_639.Alpha3: Codable {
-    public func encode(to encoder: any Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(value)
-    }
+#if !hasFeature(Embedded)
+    extension ISO_639.Alpha3: Codable {
+        public func encode(to encoder: any Encoder) throws {
+            var container = encoder.singleValueContainer()
+            try container.encode(value)
+        }
 
-    public init(from decoder: any Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        let string = try container.decode(String.self)
-        try self.init(string)
+        public init(from decoder: any Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            let string = try container.decode(String.self)
+            try self.init(string)
+        }
     }
-}
+#endif
 
 extension ISO_639.Alpha3 {
 

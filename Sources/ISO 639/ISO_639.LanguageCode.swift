@@ -24,7 +24,7 @@ extension ISO_639 {
 extension ISO_639.LanguageCode {
 
     public init(_ code: some StringProtocol) throws(ISO_639.Error) {
-        guard code.allSatisfy(\.isASCII) else {
+        guard code.allSatisfy({ $0.isASCII }) else {
             throw ISO_639.Error.invalidCharacters(String(code))
         }
 
@@ -74,15 +74,17 @@ extension ISO_639.LanguageCode: CustomStringConvertible {
     }
 }
 
-extension ISO_639.LanguageCode: Codable {
-    public func encode(to encoder: any Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(description)
-    }
+#if !hasFeature(Embedded)
+    extension ISO_639.LanguageCode: Codable {
+        public func encode(to encoder: any Encoder) throws {
+            var container = encoder.singleValueContainer()
+            try container.encode(description)
+        }
 
-    public init(from decoder: any Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        let string = try container.decode(String.self)
-        try self.init(string)
+        public init(from decoder: any Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            let string = try container.decode(String.self)
+            try self.init(string)
+        }
     }
-}
+#endif
