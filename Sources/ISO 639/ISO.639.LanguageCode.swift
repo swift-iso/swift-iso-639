@@ -1,7 +1,7 @@
 import ASCII
 import Standard_Library_Extensions
 
-extension ISO_639 {
+extension ISO.`639` {
 
     public struct LanguageCode: Sendable, Equatable, Hashable {
 
@@ -21,11 +21,11 @@ extension ISO_639 {
     }
 }
 
-extension ISO_639.LanguageCode {
+extension ISO.`639`.LanguageCode {
 
-    public init(_ code: some StringProtocol) throws(ISO_639.Error) {
+    public init(_ code: some StringProtocol) throws(ISO.`639`.Error) {
         guard code.allSatisfy({ $0.isASCII }) else {
-            throw ISO_639.Error.invalidCharacters(String(code))
+            throw ISO.`639`.Error.invalidCharacters(String(code))
         }
 
         let normalized = code.lowercased()
@@ -33,10 +33,10 @@ extension ISO_639.LanguageCode {
         switch normalized.count {
         case 2:
 
-            do throws(ISO_639.Alpha2.Error) {
-                let alpha2 = try ISO_639.Alpha2(normalized)
+            do throws(ISO.`639`.Alpha2.Error) {
+                let alpha2 = try ISO.`639`.Alpha2(normalized)
 
-                let alpha3 = ISO_639.Alpha3(alpha2)
+                let alpha3 = ISO.`639`.Alpha3(alpha2)
                 self.init(alpha2: alpha2, alpha3: alpha3)
             } catch {
                 switch error {
@@ -48,10 +48,10 @@ extension ISO_639.LanguageCode {
 
         case 3:
 
-            do throws(ISO_639.Alpha3.Error) {
-                let alpha3 = try ISO_639.Alpha3(normalized)
+            do throws(ISO.`639`.Alpha3.Error) {
+                let alpha3 = try ISO.`639`.Alpha3(normalized)
 
-                let alpha2 = ISO_639.Alpha2(alpha3)
+                let alpha2 = ISO.`639`.Alpha2(alpha3)
                 self.init(alpha2: alpha2, alpha3: alpha3)
             } catch {
                 switch error {
@@ -67,7 +67,7 @@ extension ISO_639.LanguageCode {
     }
 }
 
-extension ISO_639.LanguageCode: CustomStringConvertible {
+extension ISO.`639`.LanguageCode: CustomStringConvertible {
 
     public var description: String {
         alpha2?.value ?? alpha3.value
@@ -75,7 +75,7 @@ extension ISO_639.LanguageCode: CustomStringConvertible {
 }
 
 #if !hasFeature(Embedded)
-    extension ISO_639.LanguageCode: Codable {
+    extension ISO.`639`.LanguageCode: Codable {
         public func encode(to encoder: any Encoder) throws {
             var container = encoder.singleValueContainer()
             try container.encode(description)

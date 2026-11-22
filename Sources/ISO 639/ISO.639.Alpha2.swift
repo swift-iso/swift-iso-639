@@ -1,34 +1,29 @@
 import ASCII
 import Standard_Library_Extensions
 
-extension ISO_639 {
+extension ISO.`639` {
 
-    public struct Alpha3: Sendable, Equatable, Hashable {
+    public struct Alpha2: Sendable, Equatable, Hashable {
 
         public let value: String
 
         public init(_ value: some StringProtocol) throws(Error) {
             guard value.allSatisfy({ $0.isASCII }) else {
-                throw Alpha3.Error.invalidCharacters(String(value))
+                throw Alpha2.Error.invalidCharacters(String(value))
             }
 
             let normalized = value.lowercased()
 
-            guard normalized.count == 3 else {
-                throw Alpha3.Error.invalidCodeLength(normalized.count)
+            guard normalized.count == 2 else {
+                throw Alpha2.Error.invalidCodeLength(normalized.count)
             }
 
             guard normalized.allSatisfy({ $0.ascii.isLetter }) else {
-                throw Alpha3.Error.invalidCharacters(normalized)
-            }
-
-            if let terminology = ISO_639.bibliographicToTerminology[normalized] {
-                self = terminology
-                return
+                throw Alpha2.Error.invalidCharacters(normalized)
             }
 
             guard Self.validCodes.contains(normalized) else {
-                throw Alpha3.Error.invalidAlpha3Code(normalized)
+                throw Alpha2.Error.invalidAlpha2Code(normalized)
             }
 
             self.value = normalized
@@ -36,7 +31,7 @@ extension ISO_639 {
     }
 }
 
-extension ISO_639.Alpha3 {
+extension ISO.`639`.Alpha2 {
 
     internal init(unchecked value: String) {
         self.value = value
@@ -47,12 +42,12 @@ extension ISO_639.Alpha3 {
     }()
 }
 
-extension ISO_639.Alpha3: CustomStringConvertible {
+extension ISO.`639`.Alpha2: CustomStringConvertible {
     public var description: String { value }
 }
 
 #if !hasFeature(Embedded)
-    extension ISO_639.Alpha3: Codable {
+    extension ISO.`639`.Alpha2: Codable {
         public func encode(to encoder: any Encoder) throws {
             var container = encoder.singleValueContainer()
             try container.encode(value)
@@ -66,13 +61,13 @@ extension ISO_639.Alpha3: CustomStringConvertible {
     }
 #endif
 
-extension ISO_639.Alpha3 {
+extension ISO.`639`.Alpha2 {
 
-    public init(_ alpha2: ISO_639.Alpha2) {
+    public init?(_ alpha3: ISO.`639`.Alpha3) {
 
-        guard let alpha3 = ISO_639.alpha2ToAlpha3[alpha2] else {
-            preconditionFailure("ISO 639 Alpha-2 mapping is incomplete")
+        guard let alpha2 = ISO.`639`.alpha3ToAlpha2[alpha3] else {
+            return nil
         }
-        self = alpha3
+        self = alpha2
     }
 }

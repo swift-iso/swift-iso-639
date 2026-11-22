@@ -1,6 +1,6 @@
 import Standard_Library_Extensions
 
-extension ISO_639 {
+extension ISO.`639` {
 
     internal static let alpha2ToAlpha3: [Alpha2: Alpha3] = [
         .aa: .aar,

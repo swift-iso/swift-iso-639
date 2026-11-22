@@ -15,6 +15,7 @@ let package = Package(
         .library(name: "ISO 639", targets: ["ISO 639"])
     ],
     dependencies: [
+        .package(url: "https://github.com/swift-iso/swift-iso.git", branch: "main"),
         .package(
             url: "https://github.com/swift-atoms/swift-standard-library-extensions.git",
             branch: "main"
@@ -28,6 +29,7 @@ let package = Package(
         .target(
             name: "ISO 639",
             dependencies: [
+                .product(name: "ISO", package: "swift-iso"),
                 .product(
                     name: "Standard Library Extensions",
                     package: "swift-standard-library-extensions"

@@ -1,6 +1,6 @@
 import Standard_Library_Extensions
 
-extension ISO_639 {
+extension ISO.`639` {
 
     public enum Error: Swift::Error, Sendable, Equatable {
 

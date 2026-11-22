@@ -1,5 +1,5 @@
-extension ISO_639.Alpha2: CaseIterable {
-    public static let allCases: [ISO_639.Alpha2] = [
+extension ISO.`639`.Alpha2: CaseIterable {
+    public static let allCases: [ISO.`639`.Alpha2] = [
         .aa,
         .ab,
         .af,
